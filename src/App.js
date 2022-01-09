@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './App.css';
+import CoinTossCounter from "./CoinTossCounter";
 
 function App() {
   const [subscribed, setSubscribed] = useState(false);
@@ -13,7 +14,10 @@ function App() {
       <button
         onClick={() => {
           setSubscribed(!subscribed);
-          setSubscribedCount(subscribedCount + 1);
+          setSubscribedCount((currentCount) => currentCount + 1);
+          // having "currentCount" passed in allows us to call this multiple times within an asyncronous function
+          // doesn't work with setSubscribedCount(subscribedCount +1) called multiple times
+          setSubscribedCount((currentCount) => currentCount + 1);
           if (!alerts) setAlerts(true);
         }}
       >
@@ -22,6 +26,7 @@ function App() {
       <button onClick={() => setAlerts(!alerts)}>
         {alerts ? "Stop Email Alerts" : "Get Email Alerts"}
       </button>
+      < CoinTossCounter />
     </section>
   );
 }
